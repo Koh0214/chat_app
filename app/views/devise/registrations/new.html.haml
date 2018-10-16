@@ -1,0 +1,22 @@
+.container-fluid
+  .card.card-default.devise-bs.m-5.bg-light{style: "border-radius: 10px !important;"}
+    .card-title.mx-4.mt-4
+      %h4= t('.title', resource: resource_class.model_name.human , default: "ユーザー登録")
+    .card-body
+      = form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+        = devise_error_messages!
+        .form-group
+          = f.label :名前
+          = f.text_field :name, autofocus: true, class: 'form-control'
+        .form-group
+          = f.label :Email
+          = f.email_field :email, autofocus: true, class: 'form-control'
+        .form-group
+          = f.label :パスワード
+          = f.password_field :password, autocomplete: "off", class: 'form-control'
+        .form-group
+          = f.label :確認用パスワード
+          = f.password_field :password_confirmation, class: 'form-control'
+        .actions
+          = f.submit "ユーザー登録", class: "btn btn-primary"
+= render "devise/shared/links"

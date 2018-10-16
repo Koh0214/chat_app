@@ -15,7 +15,7 @@ class ReplyBox extends React.Component {
       value: '',
     }
   }
-  // 追記
+
   handleKeyDown(e) {
     if (e.keyCode === 13) {
       MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
@@ -29,6 +29,14 @@ class ReplyBox extends React.Component {
       value: e.target.value,
     })
   }
+
+  uploadPicture(e) {
+    const inputDOM = e.target
+    if (!inputDOM.files.length) return
+    const file = inputDOM.files[0]
+    MessagesAction.savePicture(MessagesStore.getOpenChatUserID(), file)
+  }
+
   render() {
     return (
       <div className='reply-box'>
@@ -39,6 +47,14 @@ class ReplyBox extends React.Component {
           className='reply-box__input'
           placeholder='Type message to reply..'
         />
+        <div className='reply-box__image'>
+          <input
+            className='image-select-btn'
+            type='file'
+            ref='picture'
+            onChange={this.uploadPicture.bind(this)}
+          />
+        </div>
         <span className='reply-box__tip'>
           Press <span className='reply-box__tip__button'>Enter</span> to send
         </span>

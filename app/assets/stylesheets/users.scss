@@ -1,0 +1,70 @@
+// Place all the styles related to the Users controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.user_profile_image{
+  height: 200px;
+  width: 200px;
+  border-radius: 200px;
+}
+
+
+// user-search
+.user-search-box{
+}
+
+.chatapp-logo{
+  padding-top: 80px;
+  font-size: 80px;
+}
+
+.search_form{
+  width: 400px;
+  height: 40px;
+  padding: 5px;
+  font-size: 20px;
+}
+
+.search_user_list_result{
+  width: 400px;
+  min-height: 40px;
+  padding: 5px;
+  font-size: 20px;
+  border: 1px solid;
+}
+
+.search_user_list_result_image{
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  margin-right: 10px;
+}
+
+.logo-c{
+  color: #4285f4;
+}
+
+.logo-h{
+  color: #ea4335;
+}
+
+.logo-a{
+  color: #fbbc05;
+}
+
+.logo-t{
+  color: #4285f4;
+}
+
+.logo-A{
+  color: #34a853;
+}
+
+.logo-p{
+  color: #ea4335;
+}
+
+.logo-p2{
+  color: #fbbc05;
+}

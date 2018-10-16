@@ -1,16 +1,16 @@
 // stores/messages.js
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import UserStore from '../stores/user' // 追記
+// import UserStore from '../stores/users'
 import {ActionTypes} from '../constants/app'
+// import MessagesAction from '../actions/messages'
 
-
-const messages = {
-  2: {
+var messages = {
+  1: {
     user: {
       profilePicture: 'https://avatars0.githubusercontent.com/u/7922109?v=3&s=460',
       id: 2,
-      name: 'Ryan Clark',
+      name: 'Ryan Clarkkkkk',
       status: 'online',
     },
     lastAccess: {
@@ -19,14 +19,9 @@ const messages = {
     },
     messages: [
       {
-        contents: 'HeyHeyHeyHeyKohey!',
-        from: 2,
-        timestamp: 1424469793023,
-      },
-      {
-        contents: 'Hey, what\'s up?',
-        from: 1,
-        timestamp: 1424469794000,
+        contents: 'WWWWWWWWWWWWWWWWWWWWant as game of ping pongggggggg11111111111ggggggggggggggggggggggggggggg?',
+        from: 3,
+        timestamp: 1424352522000,
       },
     ],
   },
@@ -39,42 +34,31 @@ const messages = {
       status: 'online',
     },
     lastAccess: {
-      recipient: 1424352522000,
+      recipient: 1424992522000,
       currentUser: 1424352522080,
     },
     messages: [
       {
-        contents: 'Want a game of ping pong?',
+        contents: 'Want as game of ping pongggggggggggg?',
         from: 3,
         timestamp: 1424352522000,
       },
-    ],
-  },
-  4: {
-    user: {
-      name: 'Todd Motto',
-      id: 4,
-      profilePicture: 'https://avatars1.githubusercontent.com/u/1655968?v=3&s=460',
-      status: 'online',
-    },
-    lastAccess: {
-      recipient: 1424423579000,
-      currentUser: 1424423574000,
-    },
-    messages: [
       {
-        contents: 'Pleaseああああaaaaaabbbbbbbbbbbbbbbbbb me on twitter I\'ll pay you',
-        timestamp: 1424423579000,
-        from: 4,
+        contents: 'plaaaaaaaaaaaaaaaaaaaaeeeeeeeeeeeeeeeease reply me!!!!!',
+        from: 3,
+        timestamp: 1424352522001,
       },
     ],
   },
 }
 
+// FIXME openChatIDの初期値を設定
 var openChatID = parseInt(Object.keys(messages)[0], 10)
+
 
 class ChatStore extends BaseStore {
   addChangeListener(callback) {
+    console.log('addChangeListnerInStores')
     this.on('change', callback)
   }
   removeChangeListener(callback) {
@@ -84,11 +68,29 @@ class ChatStore extends BaseStore {
     return openChatID
   }
   getChatByUserID(id) {
+    console.log('getChatByUserIDInStores')
     return messages[id]
   }
   getAllChats() {
+    console.log('getAllChatInStores')
     return messages
   }
+  updateOpenChatUserId(openChatID){
+    var openChatID = openChatID
+  }
+
+  getMessages() {
+    console.log('getMessagesInStores')
+    if (!this.get('messages')) this.setMessages([])
+    console.log(this.get('messages'))
+    return this.get('messages')
+  }
+
+   setMessages(array) {
+     console.log('setMessagesInStores')
+     this.set('messages', array)
+   }
+
 }
 const MessagesStore = new ChatStore()
 
@@ -97,21 +99,43 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
 
   switch (action.type) {
-    //MessageActionの方で、どのアクションとして送るかによって呼ばれるものが決まる。
     case ActionTypes.UPDATE_OPEN_CHAT_ID:
+      console.log('UPDATE_OPEN_CHAT_ID')
       openChatID = action.userID
-      messages[openChatID].lastAccess.currentUser = +new Date() // 追記
+      // messages[openChatID].lastAccess.currentUser = +new Date() // 追記
+      MessagesStore.setMessages(action.json)
       MessagesStore.emitChange()
       break
 
     case ActionTypes.SEND_MESSAGE:
-      const userID = action.userID
-      messages[userID].messages.push({
-        contents: action.message,
-        timestamp: action.timestamp,
-        from: UserStore.user.id,
+      console.log('SEND_MESSAGE')
+      // userIdはその時に開いていたチャットの相手のid
+      const userId = action.userId
+      MessagesStore._storage.messages.push({
+        contents: action.message.contents,
+        timestamp: action.message.timestamp,
+        from: action.message.from,
+        picture: { url: null },
       })
-      messages[userID].lastAccess.currentUser = +new Date() // 追記
+      // messages[userId].lastAccess.currentUser = +new Date()
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.GET_MESSAGES:
+      console.log('GET_MESSAGE')
+      MessagesStore.setMessages(action.json)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.SAVE_PICTURE:
+      console.log('SAVE_PICTURE')
+      MessagesStore._storage.messages.push({
+        timestamp: action.json.timestamp,
+        from: action.json.from,
+        to: action.json.to,
+        picture: { url: action.json.picture.url },
+      })
+      // messages[userId].lastAccess.currentUser = +new Date()
       MessagesStore.emitChange()
       break
   }

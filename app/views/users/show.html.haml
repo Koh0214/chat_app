@@ -1,0 +1,12 @@
+.container
+  .card.card-default.mx-auto.devise-bs.m-5.bg-light{style: "border-radius: 10px !important; width:400px;"}
+    .card-title.mx-4.mt-4
+      %img.mx-auto.d-block.user_profile_image{src: "https://pbs.twimg.com/profile_images/1044257317850509318/-c2Jq4jQ_400x400.jpg"}
+      %h1.text-center
+        #{current_user.name}
+      %h4.text-center
+        #{current_user.email}
+      %a.mx-auto.d-block.btn.btn-primary{href: "/users/edit/", style: "width: 150px; border-radius: 5px !important;"}
+        ユーザ編集
+  %a.mx-auto.d-block.btn.btn-primary{href: "/", style: "width: 150px; border-radius: 5px !important;"}
+    トップに戻る

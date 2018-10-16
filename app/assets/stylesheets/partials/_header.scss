@@ -1,4 +1,5 @@
 .header {
+  font-size: 18px;
   height: 60px;
   background: #2AADE5;
   position: absolute;
@@ -6,4 +7,36 @@
   left: 0;
   right: 0;
   z-index: 998;
+}
+
+.header-left{
+  height: 0px;
+  padding-top: 5px;
+  padding-left: 10px;
+}
+
+.header-right{
+  padding-top: 12px;
+}
+
+.drop-down__name{
+  color: rgb(97, 97, 97);
+  margin-left: 10px;
+  margin-right: 20px;
+}
+
+.header__service-name{
+  font-size: 30px;
+}
+
+.dropdown-menu.show{
+  border-radius: 5px;
+}
+
+.header__dropdown-menu{
+  color: rgb(97, 97, 97);
+  padding: 3px 20px;
+  margin: 4px;
+  font-size: 18px;
+  border-radius: 10px;
 }

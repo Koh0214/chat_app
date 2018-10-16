@@ -8,4 +8,7 @@
     = javascript_include_tag '/assets/javascripts/boot.js'
     = csrf_meta_tags
   %body
+    -# FIXME noticeで若干レイアウト崩れてる
+    -# %p.notice= notice
+    -# %p.alert= alert
     = yield
